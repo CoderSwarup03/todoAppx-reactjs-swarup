@@ -5,7 +5,7 @@ const TodoInput = ({ addTodo, todos }) => {
 
     const handleSubmit = () => {
         console.log('clicked')
-        if (input === '' && input.trim() === '') {
+        if (input === '' || input.trim() === '') {
             setInput('')
             alert('Please enter a valid todo')
             return;
