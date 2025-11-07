@@ -4,7 +4,7 @@ import TodoItem from './TodoItem'
 const TodoLIst = ({ todos, deleteTodo, toggleTodo }) => {
     return (
         <>
-            <div className='flex flex-col'>
+            <div className='flex flex-col items-center'>
                 {todos.length === 0 ? (
                     <h1 className='text-center text-gray-500 text-md md:text-2xl font-bold'>Todo is empty</h1>
                 ) : (

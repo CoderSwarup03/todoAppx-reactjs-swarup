@@ -1,19 +1,33 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import TodoInput from './components/TodoInput';
 import TodoLIst from './components/TodoLIst';
 
 const App = () => {
   const [todos, setTodos] = useState([]);
 
+  useEffect(() => {
+    const savedTodos = JSON.parse(localStorage.getItem('todos'));
+    if (savedTodos) {
+      setTodos(savedTodos);
+    }
+  }, [])
+
   const addTodo = (task) => {
-    setTodos([...todos, { id: Date.now(), task, completed: false }]);
+    const newTodo = { id: Date.now(), task, completed: false };
+    const updatedTodos = [...todos, newTodo];
+    setTodos(updatedTodos);
+    localStorage.setItem('todos', JSON.stringify(updatedTodos));
   }
   const toggleTodo = (id) => {
-    setTodos(todos.map((item) => item.id === id ? { ...item, completed: !item.completed } : item));
+    const updatedTodos = todos.map((item) => item.id === id ? { ...item, completed: !item.completed } : item);
+    setTodos(updatedTodos);
+    localStorage.setItem('todos', JSON.stringify(updatedTodos));
   }
 
   const deleteTodo = (id) => {
-    setTodos(todos.filter((item) => item.id !== id))
+    const deleteTodos = todos.filter((item) => item.id !== id);
+    setTodos(deleteTodos);
+    localStorage.setItem('todos',JSON.stringify(deleteTodos));
   }
 
   return (
@@ -27,4 +41,5 @@ const App = () => {
   )
 }
 
-export default App
+export default App   
+        
