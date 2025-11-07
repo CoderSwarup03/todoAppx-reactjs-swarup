@@ -1,7 +1,7 @@
 import React from 'react'
 import TodoItem from './TodoItem'
 
-const TodoLIst = ({ todos, deleteTodo, toggleTodo }) => {
+const TodoLIst = ({ todos, deleteTodo, toggleTodo, editTodo }) => {
     return (
         <>
             <div className='flex flex-col items-center'>
@@ -10,7 +10,7 @@ const TodoLIst = ({ todos, deleteTodo, toggleTodo }) => {
                 ) : (
                     todos.map((item) => {
                         return (
-                            <TodoItem key={item.id} item={item} deleteTodo={deleteTodo} toggleTodo={toggleTodo} />
+                            <TodoItem key={item.id} item={item} deleteTodo={deleteTodo} toggleTodo={toggleTodo} editTodo={editTodo} />
                         )
                     })
                 )}

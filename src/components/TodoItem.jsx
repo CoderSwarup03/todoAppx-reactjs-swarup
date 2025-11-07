@@ -1,11 +1,28 @@
 import React, { useState } from 'react'
 import { MdDone } from "react-icons/md";
 import { MdDeleteForever } from "react-icons/md";
-
-const TodoItem = ({ item, deleteTodo, toggleTodo }) => {
+import { FiEdit } from "react-icons/fi";
+import { Link } from 'react-router-dom';
+const TodoItem = ({ item, deleteTodo, toggleTodo, editTodo }) => {
     const [deleteModal, setDeleteModal] = useState(false);
+    const [editeModal, setEditeModal] = useState(false);
+    const [editeTask, setEditeTask] = useState(item.task);
+
+    const handleEdite = () => {
+        setEditeModal(true);
+    }
+    const handleSave = () => {
+        alert('Todo saved')
+        console.log("clickedf")
+        editTodo(item.id, editeTask);
+        setEditeModal(false);
+    }
+    const handleChange = (e) => {
+        setEditeTask(e.target.value);
+    }
+
     const handleDelete = () => {
-            deleteTodo(item.id)
+        deleteTodo(item.id)
     }
 
     return (
@@ -13,7 +30,17 @@ const TodoItem = ({ item, deleteTodo, toggleTodo }) => {
             <div className='bg-white rounded-md p-3 m-2 w-full md:w-[82vw]'>
                 <div className='flex flex-col md:flex-row justify-between items-center border border-green-500 rounded-md p-2 md:w-[80vw]'>
                     <div className='w-[90%] border-2 border-green-200 overflow-x-scroll'>
-                        <h1 className={`text-xl font-bold ${item.completed ? 'line-through' : ''}`}>{item.task}</h1>
+                        {editeModal ? (
+                            <input
+                                value={editeTask}
+                                onChange={handleChange}
+                                type="text"
+                                className='text-xl font-bold outline-none w-full'
+                            />
+                        ) : (
+                            <h1 className={`text-xl font-bold ${item.completed ? 'line-through' : ''}`}>{item.task}</h1>
+                        )}
+
                     </div>
 
                     {/*deleteModal Added here  */}
@@ -80,7 +107,7 @@ const TodoItem = ({ item, deleteTodo, toggleTodo }) => {
                                                     </span>
                                                 </button>
                                                 <button
-                                                    onClick={()=> handleDelete()}
+                                                    onClick={() => handleDelete()}
                                                     type="submit"
                                                     className="inline-flex items-center justify-center py-1 gap-1 font-medium rounded-lg border transition-colors outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset dark:focus:ring-offset-0 min-h-[2.25rem] px-4 text-sm text-white shadow focus:ring-white border-transparent bg-red-600 hover:bg-red-500 focus:bg-red-700 focus:ring-offset-red-700 cursor-pointer"
                                                 >
@@ -94,23 +121,35 @@ const TodoItem = ({ item, deleteTodo, toggleTodo }) => {
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
-                    <div className='flex justify-between gap-[60px] p-3'>
+                    <div className='flex justify-between items-center gap-4 md:gap-[35px] p-3'>
+                        <div>
+                            <FiEdit
+                                onClick={() => handleEdite()}
+                                className='text-lg md:text-2xl font-bold text-green-500 hover:text-green-600 cursor-pointer'
+                            />
+                        </div>
                         <div>
                             <MdDeleteForever
                                 onClick={() => setDeleteModal(!deleteModal)}
                                 className={`text-lg md:text-3xl font-bold text-red-500 hover:text-red-600 cursor-pointer`} />
                         </div>
                         <div>
-                            <MdDone
-                                onClick={() => toggleTodo(item.id)}
-                                className='text-lg md:text-3xl font-bold cursor-pointer' />
+                            <button>
+                                <MdDone
+                                    onClick={() => toggleTodo(item.id)}
+                                    className='text-lg md:text-3xl font-bold cursor-pointer' />
+                            </button>
+                        </div>
+                        <div>
+                            <button
+                                onClick={() => handleSave()}
+                                className='px-3 py-1 rounded-md bg-green-500 hover:bg-green-600 cursor-pointer text-white font-semibold'>Save</button>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
         </>
     )
 }
