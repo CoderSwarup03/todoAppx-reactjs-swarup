@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { MdDone } from "react-icons/md";
 import { MdDeleteForever } from "react-icons/md";
 import { FiEdit } from "react-icons/fi";
-import { Link } from 'react-router-dom';
 const TodoItem = ({ item, deleteTodo, toggleTodo, editTodo }) => {
     const [deleteModal, setDeleteModal] = useState(false);
     const [editeModal, setEditeModal] = useState(false);

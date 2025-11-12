@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const TodoInput = ({ addTodo, todos}) => {
+const TodoInput = ({ addTodo, todos }) => {
     const [input, setInput] = useState('');
 
     const handleSubmit = () => {
@@ -18,7 +18,7 @@ const TodoInput = ({ addTodo, todos}) => {
             setInput('')
             return
         }
-        addTodo(input)
+        addTodo(input.trim())
         setInput('')
     }
     const inputSubmit = (e) => {
